@@ -26,23 +26,29 @@
 </div>
 
 <script>
- async function submitData() {
-    // 1. HTML ID onujayi thik thak moto data songroh kora
-    const teamName = document.getElementById('name').value;
-    const ffId1 = document.getElementById('playerID1').value;
-    const ffId2 = document.getElementById('playerID2').value;
-    const ffId3 = document.getElementById('playerID3').value;
-    const ffId4 = document.getElementById('playerID4').value;
+async function submitData() {
+    // ID onujayi data neoa
+    const nameInput = document.getElementById('name');
+    const id1Input = document.getElementById('playerID1');
+    const id2Input = document.getElementById('playerID2');
+    const id3Input = document.getElementById('playerID3');
+    const id4Input = document.getElementById('playerID4');
 
-    // 2. URL-ti eivabe ekta single line-e rakhben (Comment hoye thakle kaj korbe na)
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzYuFgXOFLsv6O6Y_2903oVvVFjQsK2k-OJhhSmubxml3va_ceUsUZBoJ9oDzeupju8DQ/exec';
+    // Security check: Jodi kono field khali thake
+    if(!nameInput || !id1Input || !id2Input || !id3Input || !id4Input) {
+        alert("Error: Some input fields are missing in HTML!");
+        return;
+    }
+
+    // Google Script URL (Eitike single line-e rakhun)
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyZ2luS9SnDZIoC5AbuP7RZLDywAUeScX3fpeqpefVoPMt4cQhWnHVLnsMtBxAwjEAtkA/exec';
 
     const userData = {
-        teamName: teamName,
-        ffId1: ffId1,
-        ffId2: ffId2,
-        ffId3: ffId3,
-        ffId4: ffId4
+        teamName: nameInput.value,
+        ffId1: id1Input.value,
+        ffId2: id2Input.value,
+        ffId3: id3Input.value,
+        ffId4: id4Input.value
     };
 
     try {
@@ -56,12 +62,12 @@
 
         alert("Congratulations! Your registration was successful.");
         
-        // Form field gulo khali kora
-        document.getElementById('name').value = '';
-        document.getElementById('playerID1').value = '';
-        document.getElementById('playerID2').value = '';
-        document.getElementById('playerID3').value = '';
-        document.getElementById('playerID4').value = '';
+        // Form clear kora
+        nameInput.value = '';
+        id1Input.value = '';
+        id2Input.value = '';
+        id3Input.value = '';
+        id4Input.value = '';
 
     } catch (error) {
         console.error('Error!', error.message);
