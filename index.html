@@ -53,12 +53,20 @@ async function submitData() {
 
     try {
         // 'no-cors' mode use korle response pawa jay na, kintu data chole jay
-        await fetch(scriptURL, {
-            method: 'POST',
-            body: formData
-        });
-
-        alert("Congratulations! Your registration was successful.");
+       // FETCH ER BODLOE ETA USE KORO
+          await fetch(scriptURL, {
+             method: 'POST',
+             mode: 'no-cors', // Eta thakbe
+             cache: 'no-cache',
+              headers: {
+            'Content-Type': 'application/json',
+     },
+           body: JSON.stringify(userData)
+        }).then(() => {
+       alert("Congratulations! Your registration was successful.");
+    // Baki clear code...
+    }).catch(err => console.log(err));
+    //     alert("Congratulations! Your registration was successful.");
         
         // Form clear kora
         nameInput.value = '';
