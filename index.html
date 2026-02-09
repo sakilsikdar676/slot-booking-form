@@ -21,6 +21,7 @@
     <input type="text" id="playerID2" placeholder="FF ID Name2" required>
     <input type="text" id="playerID3" placeholder="FF ID Name3" required>
     <input type="text" id="playerID4" placeholder="FF ID Name4" required>
+    <input type="text" id="playerID5" placeholder="Whatsapp-Number" required>
 
     <button onclick="submitData()">Book Now</button>
 </div>
@@ -33,9 +34,10 @@ async function submitData() {
     const id2Input = document.getElementById('playerID2');
     const id3Input = document.getElementById('playerID3');
     const id4Input = document.getElementById('playerID4');
+    const id5Input = document.getElementById('playerID5');
 
     // Security check: Jodi kono field khali thake
-    if(!nameInput || !id1Input || !id2Input || !id3Input || !id4Input) {
+    if(!nameInput || !id1Input || !id2Input || !id3Input || !id4Input || !id5Input) {
         alert("Error: Some input fields are missing in HTML!");
         return;
     }
@@ -48,7 +50,8 @@ async function submitData() {
         ffId1: id1Input.value,
         ffId2: id2Input.value,
         ffId3: id3Input.value,
-        ffId4: id4Input.value
+        ffId4: id4Input.value,
+        ffId5: id5Input.value
     };
 
     try {
@@ -68,6 +71,7 @@ async function submitData() {
         id2Input.value = '';
         id3Input.value = '';
         id4Input.value = '';
+        id5Input.value = '';
 
     } catch (error) {
         console.error('Error!', error.message);
