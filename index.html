@@ -21,46 +21,41 @@
     <input type="text" id="playerID2" placeholder="FF ID Name2" required>
     <input type="text" id="playerID3" placeholder="FF ID Name3" required>
     <input type="text" id="playerID4" placeholder="FF ID Name4" required>
-    <input type="text" id="playerID5" placeholder="Whatsapp-Number" required>
+    <input type="text" id="playerID5" placeholder="Enter Whatsapp Number" required>
 
     <button onclick="submitData()">Book Now</button>
 </div>
 
 <script>
 async function submitData() {
-    // ID onujayi data neoa
     const nameInput = document.getElementById('name');
     const id1Input = document.getElementById('playerID1');
     const id2Input = document.getElementById('playerID2');
     const id3Input = document.getElementById('playerID3');
     const id4Input = document.getElementById('playerID4');
-    const id5Input = document.getElementById('playerID5');
+    const id5Input = document.getElementById('playerID5'); // WhatsApp Field
 
-    // Security check: Jodi kono field khali thake
-    if(!nameInput || !id1Input || !id2Input || !id3Input || !id4Input || !id5Input) {
-        alert("Error: Some input fields are missing in HTML!");
+    if(!nameInput.value || !id1Input.value || !id5Input.value) {
+        alert("Please fill in the required fields!");
         return;
     }
 
-    // Google Script URL (Eitike single line-e rakhun)
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbw0XKyk_9vwN-RVb8ifeJLt_S0Wwhr6ttkyfv7Kakkp5BeE3F6xNyTCTTpl_z2wGErL5A/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz_g5nXeTd4krrmMJL5MW5F54vJdu7v6BmXWTvniRTlzT2vjtNUVkBveh8vIO-aXSXwjA/exec';
 
-    const userData = {
-        teamName: nameInput.value,
-        ffId1: id1Input.value,
-        ffId2: id2Input.value,
-        ffId3: id3Input.value,
-        ffId4: id4Input.value,
-        ffId5: id5Input.value
-    };
+    // Ekhane 'whatsapp' key-ti e-shathe Google Script code-e thaka dorkar
+    const formData = new FormData();
+    formData.append('teamName', nameInput.value);
+    formData.append('player1', id1Input.value);
+    formData.append('player2', id2Input.value);
+    formData.append('player3', id3Input.value);
+    formData.append('player4', id4Input.value);
+    formData.append('whatsapp', id5Input.value); // Eta thik moto pathano hochhe
 
     try {
+        // 'no-cors' mode use korle response pawa jay na, kintu data chole jay
         await fetch(scriptURL, {
             method: 'POST',
-            mode: 'no-cors', 
-            cache: 'no-cache',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(userData)
+            body: formData
         });
 
         alert("Congratulations! Your registration was successful.");
