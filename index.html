@@ -17,51 +17,57 @@
 <div class="form-container">
     <h2>Slot Book</h2>
     <input type="text" id="name" placeholder="Team Name" required>
-    <input type="text" id="playerID" placeholder="FF ID Name1" required>
-    <input type="text" id="playerID" placeholder="FF ID Name2" required>
-    <input type="text" id="playerID" placeholder="FF ID Name3" required>
-    <input type="text" id="playerID" placeholder="FF ID Name4" required>
+    <input type="text" id="playerID1" placeholder="FF ID Name1" required>
+    <input type="text" id="playerID2" placeholder="FF ID Name2" required>
+    <input type="text" id="playerID3" placeholder="FF ID Name3" required>
+    <input type="text" id="playerID4" placeholder="FF ID Name4" required>
 
     <button onclick="submitData()">Book Now</button>
 </div>
 
 <script>
-    async function submitData() {
-        const name = document.getElementById('name').value;
-        const playerID = document.getElementById('playerID').value;
-        const phone = document.getElementById('phone').value;
+ async function submitData() {
+    // 1. HTML ID onujayi thik thak moto data songroh kora
+    const teamName = document.getElementById('name').value;
+    const ffId1 = document.getElementById('playerID1').value;
+    const ffId2 = document.getElementById('playerID2').value;
+    const ffId3 = document.getElementById('playerID3').value;
+    const ffId4 = document.getElementById('playerID4').value;
 
-        // Eikhane apnar Google Web App URL-ti boshun
-        const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+    // 2. URL-ti eivabe ekta single line-e rakhben (Comment hoye thakle kaj korbe na)
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzYuFgXOFLsv606Y_2903oVvVFjQsK2k-OJhhSmubxml3va_ceUsUZBoJ9oDzeupju8DQ/exec';
 
-        const userData = {
-            name: name,
-            playerID: playerID,
-            phone: phone
-        };
+    const userData = {
+        teamName: teamName,
+        ffId1: ffId1,
+        ffId2: ffId2,
+        ffId3: ffId3,
+        ffId4: ffId4
+    };
 
-        try {
-            // Google Script-e data pathano
-            const response = await fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors', // Google Apps Script-er jonno eta proyojon hote pare
-                cache: 'no-cache',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userData)
-            });
+    try {
+        await fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors', 
+            cache: 'no-cache',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData)
+        });
 
-            alert("Congratulations! Your registration was successful.");
-            
-            // Form clear kora
-            document.getElementById('name').value = '';
-            document.getElementById('playerID').value = '';
-            document.getElementById('phone').value = '';
+        alert("Congratulations! Your registration was successful.");
+        
+        // Form field gulo khali kora
+        document.getElementById('name').value = '';
+        document.getElementById('playerID1').value = '';
+        document.getElementById('playerID2').value = '';
+        document.getElementById('playerID3').value = '';
+        document.getElementById('playerID4').value = '';
 
-        } catch (error) {
-            console.error('Error!', error.message);
-            alert("Oops! Something went wrong. Please try again.");
-        }
+    } catch (error) {
+        console.error('Error!', error.message);
+        alert("Oops! Something went wrong.");
     }
+}
 </script>
 
 </body>
