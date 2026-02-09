@@ -33,42 +33,37 @@ async function submitData() {
     const id2Input = document.getElementById('playerID2');
     const id3Input = document.getElementById('playerID3');
     const id4Input = document.getElementById('playerID4');
-    const id5Input = document.getElementById('playerID5'); // WhatsApp Field
+    const id5Input = document.getElementById('playerID5'); // WhatsApp
 
     if(!nameInput.value || !id1Input.value || !id5Input.value) {
         alert("Please fill in the required fields!");
         return;
     }
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbz_g5nXeTd4krrmMJL5MW5F54vJdu7v6BmXWTvniRTlzT2vjtNUVkBveh8vIO-aXSXwjA/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycby43zFdGqWQRgSis2wXwvHDrsfaInCEHUQboHyrDNRROyE6LYMyKVoPwaXRM8hwWz0taA/exec';
 
-    // Ekhane 'whatsapp' key-ti e-shathe Google Script code-e thaka dorkar
-    const formData = new FormData();
-    formData.append('teamName', nameInput.value);
-    formData.append('player1', id1Input.value);
-    formData.append('player2', id2Input.value);
-    formData.append('player3', id3Input.value);
-    formData.append('player4', id4Input.value);
-    formData.append('whatsapp', id5Input.value); // Eta thik moto pathano hochhe
+    // Obostha onujayi JSON data toiri kora
+    const userData = {
+        teamName: nameInput.value,
+        ffId1: id1Input.value,
+        ffId2: id2Input.value,
+        ffId3: id3Input.value,
+        ffId4: id4Input.value,
+        ffId5: id5Input.value // Eta Column G-te jabe
+    };
 
     try {
-        // 'no-cors' mode use korle response pawa jay na, kintu data chole jay
-       // FETCH ER BODLOE ETA USE KORO
-          await fetch(scriptURL, {
-             method: 'POST',
-             mode: 'no-cors', // Eta thakbe
-             cache: 'no-cache',
-              headers: {
-            'Content-Type': 'application/json',
-     },
-           body: JSON.stringify(userData)
-        }).then(() => {
-       alert("Congratulations! Your registration was successful.");
-    // Baki clear code...
-    }).catch(err => console.log(err));
-    //     alert("Congratulations! Your registration was successful.");
+        await fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors', 
+            cache: 'no-cache',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData) // Ekhon userData defined ache
+        });
+
+        alert("Congratulations! Your registration was successful.");
         
-        // Form clear kora
+        // Form field gulo khali kora
         nameInput.value = '';
         id1Input.value = '';
         id2Input.value = '';
